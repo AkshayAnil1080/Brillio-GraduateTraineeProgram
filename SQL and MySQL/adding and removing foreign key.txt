@@ -1,0 +1,52 @@
+ CREATE TABLE addresses(
+  id INT,
+  house_number INT,
+  city VARCHAR(20),
+  postcode VARCHAR(7)
+  );
+
+CREATE TABLE people(
+id INT,
+first_name VARCHAR(20),
+last_name VARCHAR(20),
+address_id INT
+);
+
+
+ i want address_id in people to reference the id colm in address table
+
+1. 1st have to made id in address table a OK
+ ALTER TABLE addresses
+ ADD PRIMARY KEY(id);
+ 
+ 
+ DESCRIBE addresses; - now key type will show PRI for id column
+ DESCRIBE people;
+ 
+
+2. people -> addresses table => change in people table, so alter table people
+ ALTER TABLE people
+ ADD CONSTRAINT FK_PeopleAdrress   - give any name
+ FOREIGN KEY (address_id) REFERENCES addresses(id);
+
+
+DESCRIBE people; - now key type will show MUL for address_id
+
+
+
+REMOVING FK
+ALTER TABLE people
+DROP FOREIGN KEY FK_peopleAdress
+
+
+
+Syntax
+i want address_id in people to reference the id colm in address table
+i want cl1 in t1 to refernce the cl2 in t2
+S1. cl2 must be PK.
+
+S2.
+ ALTER TABLE <t1>
+ ADD CONSTRAINT <constraint_name>  - give any name
+ FOREIGN KEY (<cl1>) REFERENCES <t2>(<c2>);
+
