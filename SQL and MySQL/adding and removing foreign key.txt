@@ -12,6 +12,20 @@ last_name VARCHAR(20),
 address_id INT
 );
 
+### 3. More on alter table
+#### a. how to add and remove PK
+
+    ALTER TABLE table_name
+    ADD PRIMARY KEY(column_name);
+    
+    ALTER TABLE table_name
+    DROP PRIMARY KEY;
+
+    verify via : DESCRIBE table_name
+    after adding pK, numm value changes to NO -> then del it will still be NO.
+
+
+#### b. add and remove FK
 
  i want address_id in people to reference the id colm in address table
 
@@ -49,4 +63,50 @@ S2.
  ALTER TABLE <t1>
  ADD CONSTRAINT <constraint_name>  - give any name
  FOREIGN KEY (<cl1>) REFERENCES <t2>(<c2>);
+
+
+
+#### c. add a unique CONSTRAINT( cannot add same data twice in a colm)
+	ADD
+	ALTER TABLE <tb_name>
+	ADD CONSTAINT <cons_name> UNIQUE (<col_name>)
+	
+	REMOVE - use INDEX keyword
+	ALTER TABLE <tb_name>
+	DROP INDEX <same_cons_name_used_earlier>
+
+CODE:
+ SELECT * FROM pets;  -have col id,name, species,owner_id
+
+ ALTER TABLE pets
+ ADD CONSTRAINT s_species UNIQUE(species);
+ 
+  DESCRIBE pets;  -- showing type uniq in species
+ 
+ ALTER TABLE pets
+ DROP INDEX s_species;
+
+
+#### d. change a column name
+	ALTER TABLE <tb_name> CHANGE `old_name` `new_name` <data_type>
+	EG.
+	ALTER TABLE pets CHANGE `species` `animal_type` VARCHAR(20);
+
+#### e. change column data type
+	ALTER TABLE <tab_name> MODIFY <data_type>;
+	
+CODE
+ DESCRIBE addresses;
+
+id	int	NO	PRI		
+house_number	int	YES			
+city	varchar(20)	YES			
+postcode	varchar(7)	YES		
+
+i want to change city var(20) to city var(30);	
+ALTER TABLE addresses MODIFY city VARCHAR(30);
+
+
+
+
 
